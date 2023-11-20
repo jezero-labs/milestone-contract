@@ -4,20 +4,17 @@ pragma solidity ^0.8.19;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
+contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
     uint256 private _nextTokenId;
 
-    constructor(
-        address initialOwner
-    ) ERC721("MileNFT", "MNFT") Ownable(initialOwner) {}
+    constructor() ERC721("MileNFT", "MNFT") {}
 
     function _baseURI() internal pure override returns (string memory) {
         return "https://ipfs.io/ipfs/";
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri) public {
         uint256 tokenId = _nextTokenId++;
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
