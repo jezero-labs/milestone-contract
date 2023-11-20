@@ -6,16 +6,21 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
+    address private _owner;
     uint256 private _nextTokenId;
 
-    constructor(
-        string memory name,
-        string memory symbol
-    ) ERC721(name, symbol) {}
+    constructor(string memory name, string memory symbol) ERC721(name, symbol) {
+        _owner = msg.sender;
+    }
 
-    function safeMint(address to, string memory uri) public {
+    modifier onlyOwner() {
+        require(msg.sender == _owner, "MileNFT: caller is not the owner");
+        _;
+    }
+
+    function safeMint(string memory uri) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
+        _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
     }
 
