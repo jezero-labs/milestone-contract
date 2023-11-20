@@ -7,17 +7,11 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
     uint256 private _nextTokenId;
-    string private _name;
-    string private _symbol;
 
-    constructor(string memory name, string memory symbol) ERC721(name, symbol) {
-        _name = name;
-        _symbol = symbol;
-    }
-
-    function _baseURI() internal pure override returns (string memory) {
-        return "ddddd";
-    }
+    constructor(
+        string memory name,
+        string memory symbol
+    ) ERC721(name, symbol) {}
 
     function safeMint(address to, string memory uri) public {
         uint256 tokenId = _nextTokenId++;
@@ -57,13 +51,5 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
-    }
-
-    function getName() public view returns (string memory) {
-        return _name;
-    }
-
-    function getSymbol() public view returns (string memory) {
-        return _symbol;
     }
 }
