@@ -9,6 +9,20 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
     address private _owner;
     uint256 private _nextTokenId;
 
+    struct NFTData {
+        string geography;
+        string location;
+        string geoTag;
+        string user;
+        string title;
+        string description;
+        string cover;
+        uint256 randomNumber;
+        uint256 stakedAmount;
+    }
+
+    mapping(uint256 => NFTData) private _nftData;
+
     constructor(string memory name, string memory symbol) ERC721(name, symbol) {
         _owner = msg.sender;
     }
@@ -18,10 +32,18 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
         _;
     }
 
-    function safeMint(string memory uri) public onlyOwner {
+    function safeMint(
+        string memory uri,
+        NFTData memory nftData
+    ) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
+        _nftData[tokenId] = nftData;
+    }
+
+    function getNFTData(uint256 tokenId) public view returns (NFTData memory) {
+        return _nftData[tokenId];
     }
 
     function getTokenURI(uint256 tokenId) public view returns (string memory) {
