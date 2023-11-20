@@ -46,10 +46,6 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
         return _nftData[tokenId];
     }
 
-    function getTokenURI(uint256 tokenId) public view returns (string memory) {
-        return tokenURI(tokenId);
-    }
-
     // The following functions are overrides required by Solidity.
 
     function _update(
