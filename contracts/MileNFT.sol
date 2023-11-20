@@ -36,7 +36,7 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
         string memory uri,
         NFTData memory nftData
     ) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
+        uint256 tokenId = _getNextTokenId();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
         _nftData[tokenId] = nftData;
@@ -44,6 +44,14 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
 
     function getNFTData(uint256 tokenId) public view returns (NFTData memory) {
         return _nftData[tokenId];
+    }
+
+    function getNextTokenId() public view returns (uint256) {
+        return _getNextTokenId();
+    }
+
+    function _getNextTokenId() private view returns (uint256) {
+        return _nextTokenId;
     }
 
     // The following functions are overrides required by Solidity.
