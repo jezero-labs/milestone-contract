@@ -19,7 +19,6 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
         string description;
         string cover;
         uint256 randomNumber;
-        uint256 stakedAmount;
     }
 
     mapping(uint256 => NFTData) private _nftData;
