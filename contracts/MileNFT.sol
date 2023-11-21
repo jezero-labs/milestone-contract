@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
     address private _owner;
     uint256 private _nextTokenId;
+    uint256 private _basePrice = 5e15; // 0.005 ETH in wei
 
     struct NFTData {
         string geography;
@@ -35,7 +36,9 @@ contract MileNFT is ERC721, ERC721Enumerable, ERC721URIStorage {
     function safeMint(
         string memory uri,
         NFTData memory nftData
-    ) public onlyOwner {
+    ) public payable {
+        require(msg.value >= _basePrice, "MileNFT: Insufficient funds");
+
         uint256 tokenId = _getNextTokenId();
         _safeMint(msg.sender, tokenId);
         _setTokenURI(tokenId, uri);
