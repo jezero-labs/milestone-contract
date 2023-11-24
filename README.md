@@ -1,8 +1,6 @@
-# Sample Hardhat Project
+# Milestone Contract
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
+Polygon Mumbai ~ 0xB72ADE1e9ad4B5918c24f0094C0d5A305Ed6346d
 
 ```shell
 npx hardhat help
